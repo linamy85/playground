@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ferris Wheel</title>
+    <!-- Vue -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- Firebase -->
+    <script src="https://gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase-messaging.js"></script>
+    <!-- VueFire -->
+    <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+    <script src="./main.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ head }}</p>
+    </div>
+    <div id="userlist">
+        <ul is="transition-group">
+            <li v-for="user in users" class="user" :key="user['.key']">
+                <span>{{user.name}} - {{user.email}}</span>
+                <button v-on:click="removeUser(user)">X</button>
+            </li>
+        </ul>
+        <form id="form" v-on:submit.prevent="addUser">
+            <input type="text" v-model="newUser.name" placeholder="Username">
+            <input type="email" v-model="newUser.email" placeholder="email@email.com">
+            <input type="submit" value="Add User">
+        </form>
+        <ul class="errors">
+            <li v-show="!validation.name">Name cannot be empty.</li>
+            <li v-show="!validation.email">Please provide a valid email address.</li>
+        </ul>
+    </div>
+    <button onclick="login('google')">Login Google</button>
+</body>
+
+</html>
